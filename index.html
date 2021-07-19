@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .main {
+            width: 24%;
+            height: 50vh;
+            margin: 13rem auto;
+            border: none;
+            border-radius: 8px;
+            background-color: rgb(160, 189, 216);
+            /* transform: translate(-50%, -50%);
+            overflow: hidden; */
+        }
+
+        .img {
+            margin: 4vmin 0vmin;
+            text-align: center;
+        }
+
+        .img img {
+            margin-top: 7vmin;
+            margin-bottom: 4vmin;
+            width: 100px;
+        }
+
+        .inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .inner1 {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .inner1 img {
+            position: relative;
+            animation: tempAni 6s linear 0s infinite;
+            width: 38px;
+        }
+        @keyframes tempAni{
+            0%{
+                left: 0px;
+            }
+            50%{
+                left: -25px;
+            }
+            100%{
+                left: 0px;
+            }
+        }
+        .inner2{
+            margin-bottom: 4vmin;
+        }
+        .wave {
+            width: 1000px;
+            height: 1025px;
+            position: absolute;
+            top: -11%;
+            left: 50%;
+            margin-left: -500px;
+            margin-top: -500px;
+            border-radius: 35%;
+            background: rgba(255, 255, 255, .65);
+            animation: wave 15s infinite linear;
+        }
+
+            @keyframes wave {
+            from { transform: rotate(0deg);}
+            from { transform: rotate(360deg);}
+        }
+    </style>
+    <title>Weather</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="img">
+            <div id="tempStat">{%tempStatus%}</div>
+            <img id="statImg" alt="sunny" border="0">
+        </div>
+        <div class="inner">
+            <div class="inner1">
+                <img src="https://i.ibb.co/80vZ6N6/temp.png" alt="temp" border="0">
+                <h4 class="my-0">{%location%}, {%country%}</h4>
+            </div>
+            
+            <div class="inner2">
+                <p><span id="day"></span> | <span id="month"></span> <span id="date"></span> | <span id="hours"></span>:<span id="min"></span> <span id="AMPM"></span></p>
+            </div>
+            <div class="inner3">
+                <h4>{%tempval%} C</h4>
+            </div>
+            <div class="inner4">
+                <p>Min <span>{%tempmin%} C</span> | Max <span>{%tempmax%} C</span></p>
+            </div>
+            <div class="wave"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script>
+        let date = new Date();
+        hours = date.getHours();
+        min = date.getMinutes();
+        dayObj = {
+            1: 'MON',
+            2: 'TUES',
+            3: 'WED',
+            4: 'THUS',
+            5: 'FRI',
+            6: 'SAT',
+            0: 'SUN'
+        }
+        monthObj = {
+            0: 'JAN',
+            1: 'FEB',
+            2: 'MAR',
+            3: 'APR',
+            4: 'MAY',
+            5: 'JUN',
+            6: 'JUL',
+            7: 'AUG',
+            8: 'SEP',
+            9: 'OCT',
+            10: 'NOV',
+            11: 'DEC',
+        }
+        document.getElementById('day').innerText=dayObj[date.getDay()];
+        document.getElementById('month').innerText=monthObj[date.getMonth()];
+        document.getElementById('date').innerText=date.getDate();
+        if (hours > 12) {
+            hours =hours-12;
+        }
+        document.getElementById('hours').innerText=hours;
+        document.getElementById('min').innerText=('0' + min).slice(-2);
+        if (hours < 12) {
+            document.getElementById('AMPM').innerText='AM';
+        }
+        else {
+            document.getElementById('AMPM').innerText='PM';
+        }
+        let s=document.getElementById('tempStat').innerText;
+        document.getElementById('tempStat').style.display='none';
+        document.getElementById('statImg').src=s;
+    </script>
+</body>
+</html>
